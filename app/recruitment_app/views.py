@@ -21,14 +21,14 @@ def create_recruiter(request):
     '''
     serializer = RecruiterSerializer(data=request.data)
     if serializer.is_valid():
-            instance = serializer.save()
-            return Response({
-                'id': Recruiter(instance).__str__(),
-                'data': serializer.data,
-                'message': "The Recruiter has been created successfully"
-            },
-                status=201
-            )
+        instance = serializer.save()
+        return Response({
+            'id': Recruiter(instance).__str__(),
+            'data': serializer.data,
+            'message': "The Recruiter has been created successfully"
+        },
+            status=201
+        )
 
 
 @swagger_auto_schema(
@@ -89,7 +89,7 @@ def create_candidate(request):
     ],
     method='get',
     responses={
-        200: RecruiterSerializer,
+        200: CandidateSerializer,
         404: "The Candidate with the given Id wasn't found"
     },
     operation_description="Get a specific Candidate with given an Id"
@@ -100,7 +100,7 @@ def get_candidate(request):
     This function allows to get a candidate with a given id
     '''
     candidate = get_object_or_404(Candidate, id=request.GET.get('id'))
-    serializer = RecruiterSerializer(candidate)
+    serializer = CandidateSerializer(candidate)
     return Response({
         'data': serializer.data,
         'message': "The Recruiter has been found successfully"
@@ -111,13 +111,13 @@ def get_candidate(request):
 
 @swagger_auto_schema(
     manual_parameters=[
-        openapi.Parameter('idRecruiter', openapi.IN_PATH, description="Id of the Recruiter", type=openapi.TYPE_INTEGER,
+        openapi.Parameter('idRecruiter', openapi.IN_QUERY, description="Id of the Recruiter", type=openapi.TYPE_STRING,
                           required=True),
-        openapi.Parameter('idCandidate', openapi.IN_PATH, description="Id of the Candidate", type=openapi.TYPE_INTEGER,
+        openapi.Parameter('idCandidate', openapi.IN_QUERY, description="Id of the Candidate", type=openapi.TYPE_STRING,
                           required=True),
     ],
     method='post',
-    request_body=InterviewCreateSerializer,
+    request_body=InterviewSerializer,
     responses={201: InterviewSerializer},
     operation_description="Creates an Interview"
 )
@@ -128,7 +128,12 @@ def create_interview(request):
     it requires that both recruiter and candidate has been created
     previously
     '''
-    serializer = InterviewSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+    print()
+    recruiter = get_object_or_404(Recruiter, id=request.GET.get('idRecruiter'))
+    candidate = get_object_or_404(Candidate, id=request.GET.get('idCandidate'))
+    if recruiter is not None and candidate is not None:
+        serializer = InterviewSerializer(data=request.data)
+        print(type(serializer))
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data)
