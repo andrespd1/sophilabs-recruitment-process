@@ -1,0 +1,5 @@
+data/
+app/recruitment_app/__pycache__/
+.DS_Store
+app/.DS_Store
+app/recruitment_app/.DS_Store
