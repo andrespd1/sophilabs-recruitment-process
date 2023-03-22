@@ -79,7 +79,7 @@ WSGI_APPLICATION = "sophilabs_recruitment_process.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
         'NAME': 'sophilabs',
         'USER': 'postgres',
