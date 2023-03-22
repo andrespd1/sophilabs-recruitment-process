@@ -1,2 +1,4 @@
 Django==3.2.9
 psycopg2-binary
+djangorestframework==3.11.1
+drf-yasg==1.17.1
