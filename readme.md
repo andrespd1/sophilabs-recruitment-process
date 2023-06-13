@@ -1,4 +1,4 @@
-# Sophiplabs Recruitment Procees - Djanfo app
+# Sophiplabs Recruitment Procees - Django app
 _Dev by. **Andrés Peña Diaz**_
 
 ## What is this?
