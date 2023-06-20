@@ -2,7 +2,7 @@
 _Dev by. **Andrés Peña Diaz**_
 
 ## What is this?
-This is a Django app tha I've developed in order to show off a little bit my skills as
+This is a Python app that I've developed in order to show off a little bit my skills as
 a python programmer, and in this case using Django. The app emulates basically the recruitment
 process.
 
